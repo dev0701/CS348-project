@@ -26,3 +26,15 @@ INSERT INTO `City` (`city_name`, `office_address`,`num_employees`) VALUES
 ('New York', '111 8th Ave, New York, NY 10011',2),
 ('San Francisco', '345 Spear St, San Francisco, CA 94105',3);
 
+CREATE TABLE IF NOT EXISTS 'Skills' (
+  'employee_id' int(10) NOT NULL,
+  'skill_name' varchar(50) NOT NULL,
+  'years_of_experience' int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `Skills` (`employee_id`, 'skill_name', 'years_of_experience') VALUES
+(0001,"PROJECT_MANAGEMENT", 20),
+(0002,"DATABASE_MANAGEMENT", 5),
+(0003,"FRONTEND_PROGRAMMING", 8),
+(0004,"CODE_REVIEWING", 9),
+(0005,"BACKEND_PROGRAMMING", 16);
