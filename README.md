@@ -1,7 +1,7 @@
 # CS348-project
-##Steps to set up project:
+## Steps to set up project:
 
-###Create a new environment:
+### Create a new environment:
 
 Open a terminal
 
@@ -35,7 +35,7 @@ Add files from github repo to the api directory:
 `templates` folder
 
 
-###Install MySQL on local machine: 
+### Install MySQL on local machine: 
 
 Follow instructions on: https://dev.mysql.com/doc/refman/8.0/en/macos-installation-pkg.html
 
@@ -76,7 +76,7 @@ Verify the tables exist:
 
 `show tables;`
 
-###Run the app: 
+### Run the app: 
 
 In terminal #1 run the command:
 
