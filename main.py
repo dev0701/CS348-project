@@ -30,6 +30,10 @@ def logout():
     else:
         session['logged_in'] = False
         return login()
+        
+@app.route("/adduser", methods=['POST','GET'])
+def addUser():
+    return render_template("addUser.html")
 
 @app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
