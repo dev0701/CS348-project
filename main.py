@@ -36,9 +36,16 @@ def authenticate():
     if auth_user(request.form['employee_id'], request.form['password']) != "Authentication Failed":
         session['logged_in'] = True
         session['id'] = request.form['employee_id']
-        curr_user = auth_user(request.form['employee_id'], request.form['password'])
-        print(curr_user, flush=True)
-        return login()
+        conn = mysql.connect()
+        with conn.cursor() as cursor:
+            result = cursor.execute('SELECT position FROM Employee WHERE employee_id = %s', (session['id']))
+            position = cursor.fetchall()
+            result = cursor.execute('SELECT * FROM Employee WHERE employee_id = %s', (session['id']))
+            data = cursor.fetchall()
+            if(position == 'manager'):
+                return render_template("managerInfo.html", data = data)
+            else:
+                return render_template("userInfo.html", data = data)
     else:
         flash('The customer username or password is incorrect')
     return login()
@@ -47,13 +54,13 @@ def auth_user(employee_id, password):
     conn = mysql.connect()
     with conn.cursor() as cursor: 
         result = cursor.execute('SELECT * FROM Employee WHERE employee_id = %s and password = %s', (employee_id, password))
-        customers = cursor.fetchall()
+        user = cursor.fetchall()
         if result > 0:
-            got_customers = "auth pass"
+            got_user= "auth pass"
         else:
-            got_customers = "Authentication Failed"
+            got_user= "Authentication Failed"
     conn.close()
-    return got_customers
+    return got_user
 
 if __name__ == '__main__':
     app.run(debug=True)
