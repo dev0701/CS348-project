@@ -38,3 +38,17 @@ INSERT INTO `Skills` (`employee_id`, `skill_name`, `years_of_experience`) VALUES
 (0003,"FRONTEND_PROGRAMMING", 8),
 (0004,"CODE_REVIEWING", 9),
 (0005,"BACKEND_PROGRAMMING", 16);
+
+
+CREATE TABLE IF NOT EXISTS `Department` (
+  `department_id` int(10) NOT NULL,
+  `department_name` varchar(50) NOT NULL,
+  `dept_loc_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `Dpt_Location` (
+  `dpt_loc_id` int(10) NOT NULL,
+  `city_name` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
