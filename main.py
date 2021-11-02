@@ -1,11 +1,19 @@
 #main.py
 from flask import Flask, jsonify, request, render_template, flash, session, abort
 from flask import session as login_session
-from db import auth_user
+from flaskext.mysql import MySQL
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = "totallysupersecret"
+mysql = MySQL()
+
+#MySQL config
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Zer0cool'
+app.config['MYSQL_DATABASE_DB'] = 'cs348project'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
 
 
 @app.route("/login", methods=['POST','GET'])
@@ -24,6 +32,18 @@ def authenticate():
     else:
         flash('The customer username or password is incorrect')
     return login()
+
+def auth_user(employee_id, password):
+    conn = mysql.connect()
+    with conn.cursor() as cursor: 
+        result = cursor.execute('SELECT * FROM Employee WHERE employee_id = %s and password = %s', (employee_id, password))
+        customers = cursor.fetchall()
+        if result > 0:
+            got_customers = "auth pass"
+        else:
+            got_customers = "Authentication Failed"
+    conn.close()
+    return got_customers
 
 if __name__ == '__main__':
     app.run(debug=True)
