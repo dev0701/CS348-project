@@ -16,4 +16,13 @@ INSERT INTO `Employee` (`employee_id`, `first_name`,`last_name`,`position`,`sala
 (0004,'Joe','Rogan','manager',150000,'San Francisco',02,"password4"),
 (0005,'Claire','Newborn','engineer', 120000, 'San Francisco',02,"password5");
 
+CREATE TABLE IF NOT EXISTS `City` (
+  `city_name` varchar(50) NOT NULL,
+  `office_address` varchar(150) NOT NULL,
+  `num_employees` int(5) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `City` (`city_name`, `office_address`,`num_employees`) VALUES
+('New York', '111 8th Ave, New York, NY 10011',2),
+('San Francisco', '345 Spear St, San Francisco, CA 94105',3);
 

@@ -21,13 +21,23 @@ def login():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-        return "You are already logged in."
+        return render_template("managerInfo.html")
+
+@app.route("/logout", methods=['POST','GET'])
+def logout():
+    if not session.get('logged_in'):
+        return render_template("login.html")
+    else:
+        session['logged_in'] = False
+        return login()
 
 @app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
     if auth_user(request.form['employee_id'], request.form['password']) != "Authentication Failed":
         session['logged_in'] = True
         session['id'] = request.form['employee_id']
+        curr_user = auth_user(request.form['employee_id'], request.form['password'])
+        print(curr_user, flush=True)
         return login()
     else:
         flash('The customer username or password is incorrect')
