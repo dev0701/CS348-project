@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Add User</title>
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-   </head>
-   <body>
-      
-      <form action="/addUser" method="POST">
-      <div class="login">
-      <div class="login-screen">
-      <div class="app-title">
-         <h1>Add User</h1>
-      </div>
-      <div class="login-form">
-                  <div class="control-group">
-         <input type="First Name" class="login-field" name="salary" placeholder="First Name">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-                  <div class="control-group">
-         <input type="Last Name" class="login-field" name="salary" placeholder="Last Name">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-      <div class="control-group">
-         <input type="Employee Id" class="login-field" name="employee_id" placeholder="Employee Id">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-      <div class="control-group">
-         <input type="Password" class="login-field" name="password" placeholder="Password">
-      <label class="login-field-icon fui-lock" for="login-pass"></label></div>
-            <div class="control-group">
-         <input type="Salary" class="login-field" name="salary" placeholder="Salary">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-               <input type="City Name" class="login-field" name="salary" placeholder="City Name">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-               <input type="Position Title" class="login-field" name="salary" placeholder="Position Title">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-               <input type="Department Name" class="login-field" name="salary" placeholder="Department Name">
-      <label class="login-field-icon fui-user" for="login-name"></label></div>
-      <input type="submit" value="Add User" class="btn btn-primary btn-large btn-block"> 
-      </div>
-      </div>
-      </div>
-      </form>
-      
-   </body>
+
+<head>
+    <meta charset="utf-8">
+    <title>Add User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+</head>
+
+<body>
+
+    <form action="/useradded" method="POST">
+        <div class="login">
+            <div class="login-screen">
+                <div class="app-title">
+                    <h1>Add User</h1>
+                </div>
+                <div class="login-form">
+                    <div class="control-group">
+                        <input type="First Name" class="login-field" name="first-name" placeholder="First Name">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <div class="control-group">
+                        <input type="Last Name" class="login-field" name="last-name" placeholder="Last Name">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <div class="control-group">
+                        <input type="Employee Id" class="login-field" name="employee-id" placeholder="Employee Id">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <div class="control-group">
+                        <input type="Password" class="login-field" name="password" placeholder="Password">
+                        <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    </div>
+                    <div class="control-group">
+                        <input type="Salary" class="login-field" name="salary" placeholder="Salary">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <input type="City Name" class="login-field" name="city-name" placeholder="City Name">
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+                <input type="Position Title" class="login-field" name="position" placeholder="Position Title">
+                <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+            <input type="Department ID" class="login-field" name="dept-id" placeholder="Department ID">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+        <input type="submit" value="Add User" class="btn btn-primary btn-large btn-block">
+        </div>
+        </div>
+        </div>
+    </form>
+
+</body>
+
 </html>

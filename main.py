@@ -30,10 +30,6 @@ def logout():
     else:
         session['logged_in'] = False
         return login()
-        
-@app.route("/adduser", methods=['POST','GET'])
-def addUser():
-    return render_template("addUser.html")
 
 @app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
@@ -46,7 +42,7 @@ def authenticate():
             position = cursor.fetchall()
             result = cursor.execute('SELECT * FROM Employee WHERE employee_id = %s', (session['id']))
             data = cursor.fetchall()
-            if(position == 'manager'):
+            if(position[0][0] == 'manager'):
                 return render_template("managerInfo.html", data = data)
             else:
                 return render_template("userInfo.html", data = data)
@@ -66,5 +62,22 @@ def auth_user(employee_id, password):
     conn.close()
     return got_user
 
+@app.route("/adduser", methods=['POST','GET'])
+def addUserForm():
+    return render_template("addUser.html")
+
+@app.route("/useradded", methods=['POST','GET'])
+def addUser():
+    conn = mysql.connect()
+    with conn.cursor() as cursor: 
+        result = cursor.execute('INSERT INTO `Employee` (`employee_id`, `first_name`,`last_name`,`position`,`salary`,`city`,`department_id`,`password`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',(request.form['employee-id'],request.form['first-name'],request.form['last-name'],request.form['position'],request.form['salary'],request.form['city-name'],request.form['dept-id'],request.form['password']))
+        conn.commit()
+        if result > 0:
+            return login()
+        else:
+            useradded = 0
+    conn.close()
+    return addUserForm()
+    
 if __name__ == '__main__':
     app.run(debug=True)
