@@ -19,7 +19,7 @@ INSERT INTO `Employee` (`employee_id`, `first_name`,`last_name`,`position`,`sala
 CREATE TABLE IF NOT EXISTS `City` (
   `city_name` varchar(50) NOT NULL,
   `office_address` varchar(150) NOT NULL,
-  `num_employees` int(5) NOT NULL,
+  `num_employees` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `City` (`city_name`, `office_address`,`num_employees`) VALUES
