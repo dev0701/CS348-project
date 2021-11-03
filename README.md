@@ -23,6 +23,8 @@ Install flask package:
 
 `pip install flask`
 
+`pip install flask-mysql`
+
 Create api directory:
 
 `mkdir api && cd api`
