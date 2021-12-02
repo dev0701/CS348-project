@@ -31,6 +31,13 @@ def logout():
         session['logged_in'] = False
         return login()
 
+@app.route("/search", methods=['POST','GET'])
+def search():
+    if not session.get('logged_in'):
+        return render_template("login.html")
+    else:
+       return render_template("search.html") 
+
 @app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
     if auth_user(request.form['employee_id'], request.form['password']) != "Authentication Failed":
