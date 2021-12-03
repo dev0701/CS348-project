@@ -36,7 +36,25 @@ def search():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-       return render_template("search.html") 
+       if request.method == "POST":
+           print('post method')
+           form = request.form
+           search_value = form['search_string']
+           print(search_value)
+           conn = mysql.connect()
+           with conn.cursor() as cursor: 
+               result = cursor.execute('SELECT first_name, last_name FROM Employee WHERE employee_id = %s', search_value)
+           data = cursor.fetchall()
+           print(data)
+           
+    conn.close()
+           
+           
+    return render_template("search.html", data=data)
+           
+    
+            
+       
 
 @app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
