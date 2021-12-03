@@ -43,7 +43,7 @@ def search():
            print(search_value)
            conn = mysql.connect()
            with conn.cursor() as cursor: 
-               result = cursor.execute('SELECT first_name, last_name FROM Employee WHERE employee_id = %s', search_value)
+               result = cursor.execute('SELECT DISTINCT * FROM Employee WHERE employee_id = %s', search_value)
            data = cursor.fetchall()
            print(data)
            
