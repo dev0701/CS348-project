@@ -30,6 +30,7 @@
          </form>
          <h4>Company Database</h4>
          <body>
+            <h1> Search Results </h1>
             <table>
                <tr>
                   <th>Employee ID</th>
@@ -39,7 +40,7 @@
                   <th>Salary</th>
                   {% for item in data %}
                      <tr>
-                        <td>{{data[0]}}</td>
+                        <td>{{item}}</td>
                      </tr>
                   {% endfor %}
                </tr>

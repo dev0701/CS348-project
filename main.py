@@ -31,39 +31,21 @@ def logout():
         session['logged_in'] = False
         return login()
 
-@app.route("/search", methods=['POST','GET'])
-def search():
-    if not session.get('logged_in'):
-        return render_template("login.html")
-    else:
-       if request.method == "POST":
-           print('post method')
-           form = request.form
-           search_value = form['search_string']
-           print(search_value)
-           conn = mysql.connect()
-           with conn.cursor() as cursor: 
-               result = cursor.execute('SELECT DISTINCT * FROM Employee WHERE employee_id = %s', search_value)
-           data = cursor.fetchall()
-           print(data)
-           
-    conn.close()
-           
-           
-    return render_template("search.html", data=data)
-           
-    
-            
-       
-
 @app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
     if auth_user(request.form['employee_id'], request.form['password']) != "Authentication Failed":
         session['logged_in'] = True
         session['id'] = request.form['employee_id']
-        curr_user = auth_user(request.form['employee_id'], request.form['password'])
-        print(curr_user, flush=True)
-        return login()
+        conn = mysql.connect()
+        with conn.cursor() as cursor:
+            result = cursor.execute('SELECT position FROM Employee WHERE employee_id = %s', (session['id']))
+            position = cursor.fetchall()
+            result = cursor.execute('SELECT * FROM Employee WHERE employee_id = %s', (session['id']))
+            data = cursor.fetchall()
+            if(position[0][0] == 'manager' or position[0][0] == 'Manager'):
+                return render_template("managerInfo.html", data = data)
+            else:
+                return render_template("userInfo.html", data = data)
     else:
         flash('The customer username or password is incorrect')
     return login()
@@ -72,13 +54,49 @@ def auth_user(employee_id, password):
     conn = mysql.connect()
     with conn.cursor() as cursor: 
         result = cursor.execute('SELECT * FROM Employee WHERE employee_id = %s and password = %s', (employee_id, password))
-        customers = cursor.fetchall()
+        user = cursor.fetchall()
         if result > 0:
-            got_customers = "auth pass"
+            got_user= "auth pass"
         else:
-            got_customers = "Authentication Failed"
+            got_user= "Authentication Failed"
     conn.close()
-    return got_customers
+    return got_user
 
+@app.route("/search", methods=['POST','GET'])
+def search():
+    if not session.get('logged_in'):
+        return render_template("login.html")
+    else:
+       if request.method == "POST":
+            print('post method')
+            form = request.form
+            search_value = form['search_string']
+            print(search_value)
+            conn = mysql.connect()
+            with conn.cursor() as cursor: 
+                result = cursor.execute('SELECT DISTINCT * FROM Employee WHERE employee_id = %s OR first_name = %s OR last_name = %s OR position = %s OR salary = %s OR department_id = %s OR city = %s', (search_value,search_value,search_value,search_value,search_value,search_value,search_value ))
+            data = cursor.fetchall()
+            print(data)       
+            conn.close()
+            return render_template("search.html", data=data)       
+    return render_template("search.html")
+
+@app.route("/adduser", methods=['POST','GET'])
+def addUserForm():
+    return render_template("addUser.html")
+
+@app.route("/useradded", methods=['POST','GET'])
+def addUser():
+    conn = mysql.connect()
+    with conn.cursor() as cursor: 
+        result = cursor.execute('INSERT INTO `Employee` (`employee_id`, `first_name`,`last_name`,`position`,`salary`,`city`,`department_id`,`password`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',(request.form['employee-id'],request.form['first-name'],request.form['last-name'],request.form['position'],request.form['salary'],request.form['city-name'],request.form['dept-id'],request.form['password']))
+        conn.commit()
+        if result > 0:
+            return login()
+        else:
+            useradded = 0
+    conn.close()
+    return addUserForm()
+    
 if __name__ == '__main__':
     app.run(debug=True)
