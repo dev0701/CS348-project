@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Edit employee</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+   </head>
+   <body>
+      <header>
+         <div class="container">
+            <h1 class="logo">Company Management Tool - Edit</h1>
+            <strong>
+               <nav>
+                  <ul class="menu">
+                     {%if session['logged_in'] != True%}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                     {%else%}
+                        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                        <li><a href="{{ url_for('search') }}">Search</a></li>
+                        <li><a href="{{ url_for('edit')}}">Edit Employee</a></li>
+                        <li><a href="{{ url_for('addUserForm')}}">Add Employee</a></li>
+                        <li><a href="{{ url_for('login')}}">Home</a></li>
+                     {% endif %}
+                  </ul>
+               </nav>
+            </strong>
+         </div>
+      </header>
+      <h1> search employee to edit: </h1>
+         <form method="POST">
+            <input type="text" autofocus="autofocus" name="search_string">
+            <input type="submit" formaction="/edit" value="Search">
+         </form>
+         <h4>Company Database</h4>
+         <body>
+            <h1> Search Results </h1>
+            <h5>Click on the corresponding id to edit employee info</h5>
+            <table>
+               <tr>
+                  {% for item in data %}
+                     <tr>
+                        <form method="POST">
+                        <td>
+                           <input type="submit" formaction="/edit_employee" name='action' value={{item[0]}}>
+                           {{item[1]}} {{item[2]}} {{item[3]}} {{item[4]}} {{item[5]}} {{item[6]}}
+                        </form>
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tr>
+            </table>
+         </body>
+      <form action="/logout">
+        <input type="submit" value="Log Out" class="btn btn-primary btn-large btn-block">
+     </form>
+   </body>
+</html>

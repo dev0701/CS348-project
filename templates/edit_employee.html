@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Add User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+</head>
+
+<body>
+
+    <form action="/employee_edited" method="POST">
+        <div class="login">
+            <div class="login-screen">
+                <div class="app-title">
+                    <h1>Edit User</h1>
+                </div>
+                <div class="login-form">
+                    <div class="control-group">
+                        <th>First Name</th>
+                        <input autocomplete="off" type="First Name" class="login-field" name="first-name" placeholder= {{data[0][1]}}>
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <div class="control-group">
+                        <th>Last Name</th>
+                        <input autocomplete="off" type="Last Name" class="login-field" name="last-name" placeholder= {{data[0][2]}}>
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <div class="control-group">
+                        <th>Password</th>
+                        <input autocomplete="off"  type="Password" class="login-field" name="password" placeholder= {{data[0][7]}}>
+                        <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    </div>
+                    <div class="control-group">
+                        <th>Salary</th>
+                        <input autocomplete="off" type="Salary" class="login-field" name="salary" placeholder= {{data[0][4]}}>
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+                    <th>city-name</th>
+                    <input autocomplete="off" type="City Name" class="login-field" name="city-name" placeholder= '{{data[0][5]}}'>
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+                <th>Position Title</th>
+                <input autocomplete="off" type="Position Title" class="login-field" name="position" placeholder= {{data[0][3]}}>
+                <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+            <th>Dept ID</th>
+            <input autocomplete="off" type="Department ID" class="login-field" name="dept-id" placeholder= {{data[0][6]}}>
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+        <input type="submit" value="submit" class="btn btn-primary btn-large btn-block">
+        </div>
+        </div>
+        </div>
+    </form>
+
+</body>
+
+</html>
