@@ -117,7 +117,7 @@ def edit_employee_form():
             return render_template("edit_employee.html", data=data)       
     return render_template("edit.html")
   
-
+#edit employee
 @app.route("/employee_edited", methods=['POST','GET'])
 def edit_employee():
     conn = mysql.connect()
