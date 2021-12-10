@@ -16,7 +16,9 @@
                         <li><a href="{{ url_for('login') }}">Login</a></li>
                      {%else%}
                         <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                        <li><a href="{{ url_for('login') }}">Home</a></li>
                         <li><a href="{{ url_for('search') }}">Search</a></li>
+                        <li><a href="{{ url_for('edit')}}">Edit Employee</a></li>
                         <li><a href="{{ url_for('addUserForm')}}">Add Employee</a></li>
                      {% endif %}
                   </ul>

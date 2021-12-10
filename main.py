@@ -123,7 +123,7 @@ def edit_employee():
     conn = mysql.connect()
     with conn.cursor() as cursor:
         emp_id = session.get('emp_id', None)
-        result = cursor.execute('UPDATE EMPLOYEE SET first_name = %s, last_name = %s WHERE employee_id = %s ', (request.form['first-name'], request.form['last-name'], emp_id,))
+        result = cursor.execute('UPDATE EMPLOYEE SET first_name = %s, last_name = %s, password = %s, salary = %s, city = %s, position = %s, department_id = %s WHERE employee_id = %s ', (request.form['first-name'], request.form['last-name'], request.form['password'], request.form['salary'], request.form['city-name'], request.form['position'], request.form['dept-id'], emp_id,))
         conn.commit()
         if result > 0:
             return login()
