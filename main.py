@@ -67,18 +67,37 @@ def search():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-       if request.method == "POST":
-            print('post method')
-            form = request.form
-            search_value = form['search_string']
-            print(search_value)
-            conn = mysql.connect()
-            with conn.cursor() as cursor: 
-                result = cursor.execute('SELECT DISTINCT * FROM Employee WHERE employee_id = %s OR first_name = %s OR last_name = %s OR position = %s OR salary = %s OR department_id = %s OR city = %s', (search_value,search_value,search_value,search_value,search_value,search_value,search_value ))
-            data = cursor.fetchall()
-            print(data)       
-            conn.close()
-            return render_template("search.html", data=data)       
+        if request.method == "POST":
+            if request.form['action'] == 'Search':
+                print('post method')
+                form = request.form
+                search_value = form['search_string']
+                print(search_value)
+                conn = mysql.connect()
+                with conn.cursor() as cursor: 
+                    result = cursor.execute('SELECT DISTINCT * FROM Employee WHERE employee_id = %s OR first_name = %s OR last_name = %s OR position = %s OR salary = %s OR department_id = %s OR city = %s', (search_value,search_value,search_value,search_value,search_value,search_value,search_value ))
+                data = cursor.fetchall()
+                print(data)       
+                conn.close()
+                return render_template("search.html", data=data) 
+            if request.form['action'] == 'Show All':
+                conn = mysql.connect()
+                print(request.form['action'])
+                with conn.cursor() as cursor: 
+                    result = cursor.execute('call ReturnAllEmployees;')
+                    data = cursor.fetchall()
+                print(data)
+                conn.close()
+                return render_template("search.html", data=data)
+            if request.form['action'] == 'Sort by Salary':
+                conn = mysql.connect()
+                print(request.form['action'])
+                with conn.cursor() as cursor: 
+                    result = cursor.execute('call sortBySalary;')
+                    data = cursor.fetchall()
+                print(data)
+                conn.close()
+                return render_template("search.html", data=data)
     return render_template("search.html")
 
 @app.route("/edit", methods=['POST','GET'])
@@ -132,12 +151,6 @@ def edit_employee():
     conn.close()
     return edit_employee_form()
 
-
-    
-            
-        
-        
-
 @app.route("/adduser", methods=['POST','GET'])
 def addUserForm():
     return render_template("addUser.html")
@@ -146,12 +159,18 @@ def addUserForm():
 def addUser():
     conn = mysql.connect()
     with conn.cursor() as cursor: 
-        result = cursor.execute('INSERT INTO `Employee` (`employee_id`, `first_name`,`last_name`,`position`,`salary`,`city`,`department_id`,`password`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',(request.form['employee-id'],request.form['first-name'],request.form['last-name'],request.form['position'],request.form['salary'],request.form['city-name'],request.form['dept-id'],request.form['password']))
-        conn.commit()
-        if result > 0:
-            return login()
-        else:
-            useradded = 0
+        result = cursor.execute('SELECT * FROM City WHERE city_name = %s;',request.form['city-name'])
+        data = cursor.fetchall()
+        if data != ():
+            result = cursor.execute('SELECT * FROM Department WHERE department_id= %s;',request.form['dept-id'])
+            data = cursor.fetchall()
+            if data != ():
+                result = cursor.execute('INSERT INTO `Employee` (`employee_id`, `first_name`,`last_name`,`position`,`salary`,`city`,`department_id`,`password`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',(request.form['employee-id'],request.form['first-name'],request.form['last-name'],request.form['position'],request.form['salary'],request.form['city-name'],request.form['dept-id'],request.form['password']))
+                conn.commit()
+                if result > 0:
+                    return login()
+                else:
+                    useradded = 0
     conn.close()
     return addUserForm()
     

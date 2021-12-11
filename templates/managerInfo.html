@@ -26,7 +26,29 @@
             </strong>
          </div>
       </header>
-      <h1> Welcome: </h1>
+      <h1> Welcome: {{data[0][1]}} {{data[0][2]}}</h1>
+      <table style="width:50%"> 
+        <tr> 
+            <th>User Id: </th>
+            <td>{{data[0][0]}} </td>
+        </tr>
+        <tr> 
+            <th>Position: </th>
+            <td>{{data[0][3]}}</td>
+        </tr>
+        <tr> 
+            <th>Salary: </th>
+            <td>{{data[0][4]}}</td>
+        </tr>
+        <tr> 
+            <th>City: </th>
+            <td>{{data[0][5]}}</td>
+        </tr>
+        <tr> 
+            <th>Department ID: </th>
+            <td>{{data[0][6]}}</td>
+        </tr>
+      </table> 
       <form action="/logout">
         <input type="submit" value="Log Out" class="btn btn-primary btn-large btn-block">
      </form>

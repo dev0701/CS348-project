@@ -46,9 +46,33 @@ CREATE TABLE IF NOT EXISTS `Department` (
   `dept_loc_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `Department` (`department_id`,`department_name`,`dept_loc_id`) VALUES
+(1,"MONETIZATION", 1),
+(2,"RESEARCH",2);
+
 
 CREATE TABLE IF NOT EXISTS `Dpt_Location` (
   `dpt_loc_id` int(10) NOT NULL,
   `city_name` varchar(50) NOT NULL,
   `address` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `Dpt_Location` (`dpt_loc_id`,`city_name`,`address`) VALUES
+(1,'New York','111 8th Ave, New York, NY 10011'),
+(2,'San Francisco','345 Spear St, San Francisco, CA 94105');
+
+
+DELIMITER //
+create procedure ReturnAllEmployees()
+begin
+SELECT * FROM Employee;
+end
+//
+
+DELIMITER //
+create procedure sortBySalary()
+begin
+SELECT * FROM Employee ORDER BY salary DESC;
+end
+//
+
